@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - GET PET BACK</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="dash.js"></script>
+    <style>
+        body {
+            background-color: white;
+            color: #0D6EFD;
+        }
+        .container {
+            margin-top: 10px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .success-message {
+            color: green;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://i.pinimg.com/originals/02/2e/af/022eafe2c5fcb01d20e709e112fa6d7a.png" width="" height="100" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="main.html">Главная</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="authorization.html">Личный кабинет</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="registration.html">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="add.html">Добавить объявление</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="search.html">Поиск по объявлениям</a>
+                </li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control me-2" type="search" list="pets" placeholder="Поиск" aria-label="Search">
+                <button class="btn btn-primary" onclick="">Поиск</button>
+                <datalist id="pets">
+                  <option value="Кошка">
+                  </option><option value="Собака">
+                  </option><option value="Корова">
+                  </option><option value="Крокодил">
+                  </option><option value="Сова">
+                </option></datalist>
+              </form>
+            </div>
+          </div>
+        </nav>
+    </header>
+
+<div class="container">
+    <div class="header">
+        <h1>Личный кабинет</h1>
+    </div>
+    <div class="user-info">
+        <h2>Добро пожаловать, [Имя пользователя]</h2>
+        <p><strong>Дата регистрации:</strong> <span id="registration-date">01.01.2023</span></p>
+        <p><strong>Количество объявлений:</strong> <span id="orders-count">5</span></p>
+        <p><strong>Количество найденных животных:</strong> <span id="pets-count">2</span></p>
+    </div>
+</div>
+
+<script>
+    // Здесь вы можете написать код для получения данных о пользователе через API
+    // или передать данные с серверной стороны, если используете шаблоны
+
+    // Пример заполняемых данных (здесь вы замените на реальные данные)
+    const userData = {
+        registrationDate: "01.01.2023",  // дата регистрации
+        ordersCount: 5,                  // количество объявлений
+        petsCount: 2                     // количество найденных животных
+    };
+
+    document.getElementById('registration-date').innerText = userData.registrationDate;
+    document.getElementById('orders-count').innerText = userData.ordersCount;
+    document.getElementById('pets-count').innerText = userData.petsCount;
+</script>
+
+</body>
+</html>

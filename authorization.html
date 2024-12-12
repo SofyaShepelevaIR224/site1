@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+            color: #0D6EFD;
+        }
+        .container {
+            margin-top: 0px;
+        }
+        .logo {
+
+            margin-top: 10px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-control {
+            border: 1px solid #0D6EFD;
+            border-radius: 5px;
+        }
+        .btn-custom {
+            background-color: #0D6EFD;
+            color: white;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .success-message {
+            color: green;
+            font-size: 1em;
+        }
+        .black-text {
+            color: #000000; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://i.pinimg.com/originals/02/2e/af/022eafe2c5fcb01d20e709e112fa6d7a.png" width="150" height="120" alt="logo">
+        <h1 class="text-center">
+            <span class="black-text">Вход в</span> GET PET BACK
+    </div>
+    <form id="authForm">
+        <div class="form-group">
+            <label for="email">Электронная почта</label>
+            <input type="email" class="form-control" id="email" required placeholder="Введите ваш email">
+            <div class="error-message" id="emailError"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" id="password" required placeholder="Введите ваш пароль">
+            <div class="error-message" id="passwordError"></div>
+        </div>
+        <button type="submit" class="btn btn-custom">Войти</button>
+        <div class="success-message" id="successMessage"></div>
+        <div class="error-message" id="generalError"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('authForm').onsubmit = function(event) {
+        event.preventDefault();
+
+        // Сбросить сообщения об ошибках
+        document.getElementById('emailError').textContent = '';
+        document.getElementById('passwordError').textContent = '';
+        document.getElementById('successMessage').textContent = '';
+        document.getElementById('generalError').textContent = '';
+
+        // Получаем значения полей
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        let formIsValid = true;
+
+        // Проверка валидности email
+        if (!email) {
+            document.getElementById('emailError').textContent = 'Электронная почта обязательна.';
+            formIsValid = false;
+        }
+
+        // Проверка валидности пароля
+        if (!password) {
+            document.getElementById('passwordError').textContent = 'Пароль обязателен.';
+            formIsValid = false;
+        }
+
+        // Если форма валидна, отображаем сообщение об успешной аутентификации и перенаправляем
+        if (formIsValid) {
+            document.getElementById('successMessage').textContent = 'Успешная аутентификация! Выполняется вход...';
+            // Перенаправление на dashboard.html через 1 секунду
+            setTimeout(function() {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        }
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

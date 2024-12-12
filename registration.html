@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - GET PET BACK</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+            color: #0D6EFD;
+        }
+        .container {
+            margin-top: 0px;
+        }
+        .logo {
+            margin-top: 10px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-control {
+            border: 1px solid #0D6EFD;
+            border-radius: 5px;
+        }
+        .btn-custom {
+            background-color: #0D6EFD;
+            color: white;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .black-text {
+            color: #000000; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <a class="navbar-brand" href="main.html">
+            <img src="https://i.pinimg.com/originals/02/2e/af/022eafe2c5fcb01d20e709e112fa6d7a.png" width="150" height="120" alt="logo">
+        </a>
+        <h1 class="text-center">
+            <span class="black-text">Регистрация в</span> GET PET BACK
+        </h1>
+    </div>
+    
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="name">Имя пользователя</label>
+            <input type="text" class="form-control" id="name" required>
+            <div class="error-message" id="nameError"></div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="tel" class="form-control" id="phone" placeholder="+79991234567" required>
+            <div class="error-message" id="phoneError"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" required>
+            <div class="error-message" id="emailError"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" id="password" required>
+            <div class="error-message" id="passwordError"></div>
+        </div>
+        <div class="form-group">
+            <label for="password_confirmation">Подтверждение пароля</label>
+            <input type="password" class="form-control" id="password_confirmation" required>
+            <div class="error-message" id="passwordConfirmationError"></div>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="confirm" required>
+            <label class="form-check-label" for="confirm">Согласен на обработку персональных данных</label>
+            <div class="error-message" id="confirmError"></div>
+        </div>
+        <button type="submit" class="btn btn-custom">Зарегистрироваться</button>
+    </form>
+    <div class="success-message mt-3" style="display:none;color:green;"></div>
+    
+</div>
+</br></br>
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // предотвращаем отправку формы
+
+    // Сброс сообщений об ошибках
+    document.getElementById('nameError').innerText = '';
+    document.getElementById('phoneError').innerText = '';
+    document.getElementById('emailError').innerText = '';
+    document.getElementById('passwordError').innerText = '';
+    document.getElementById('passwordConfirmationError').innerText = '';
+    document.getElementById('confirmError').innerText = '';
+    document.querySelector('.success-message').style.display = 'none';
+
+    // Получение значений
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const passwordConfirmation = document.getElementById('password_confirmation').value;
+    const confirm = document.getElementById('confirm').checked;
+
+    let valid = true;
+
+    // Валидация имени
+    const nameRegex = /^[а-яА-ЯёЁ\s-]+$/;
+    if (!name || !nameRegex.test(name)) {
+        document.getElementById('nameError').innerText = 'Введите корректное имя (кириллица, пробелы, дефисы)';
+        valid = false;
+    }
+
+    // Валидация телефона
+    const phoneRegex = /^\+\d{10,}$/; // + и 10 цифр
+    if (!phone || !phoneRegex.test(phone)) {
+        document.getElementById('phoneError').innerText = 'Введите корректный номер телефона (пример: +79991234567)';
+        valid = false;
+    }
+
+    // Валидация email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+        document.getElementById('emailError').innerText = 'Введите корректный email';
+        valid = false;
+    }
+
+    // Валидация пароля
+    const passwordRegex = /^(?=.*[0-9])(?=.*[a-zа-я])(?=.*[A-ZА-Я]).{7,}$/;
+    if (!password || !passwordRegex.test(password)) {
+        document.getElementById('passwordError').innerText = 'Пароль должен содержать минимум 7 символов, включая 1 цифру, 1 строчную и 1 заглавную буквы';
+        valid = false;
+    }
+
+    // Валидация подтверждения пароля
+    if (password !== passwordConfirmation) {
+        document.getElementById('passwordConfirmationError').innerText = 'Пароли не совпадают';
+        valid = false;
+    }
+
+    // Валидация согласия на обработку данных
+    if (!confirm) {
+        document.getElementById('confirmError').innerText = 'Необходимо согласие на обработку персональных данных';
+        valid = false;
+    }
+
+    // Если форма валидна, выводим сообщение и перенаправляем
+    if (valid) {
+        document.querySelector('.success-message').innerText = 'Успешная регистрация. Выполняется вход...';
+        document.querySelector('.success-message').style.display = 'block';
+
+        // Таймер на 2 секунды перед перенаправлением
+        setTimeout(function() {
+            window.location.href = 'dashboard.html'; // Перенаправление на dashboard.html
+        }, 2000);
+    }
+});
+
+
+
+</script>
+
+</body>
+</html>
